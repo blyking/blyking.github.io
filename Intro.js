@@ -1,15 +1,15 @@
-let mode = document.querySelector("#mode_selection");
-let modetitle = document.querySelector("#answer1");
+const heading = document.querySelector("#heading");
+const mode = document.querySelector("#mode_selection");
 
 mode.addEventListener("keyup", () => {
-    Number.parseInt(mode, 10);
-    if (mode == 1) {
+    const m = Number.parseInt(mode, 10);
+    if (m == 1) {
         //Practice mode: learn where keys are on keyboard
-        answer1.textContent = "Practice Mode"
-    } else if (mode == 2) {
+        heading.textContent = "Practice Mode";
+    } else if (m == 2) {
         //Test mode: practice typing words and sentences
-        answer1.textContent = "Test Mode"
+        heading.textContent = "Test Mode";
     } else {
-        answer1.textContent = "Invalid mode! Please type 1 or 2."
+        heading.textConstant = "Invalid mode! Please type 1 or 2.";
     }
-})
+});
