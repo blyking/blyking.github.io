@@ -4,9 +4,11 @@ const heading = document.querySelector("#heading"); //will be title of second te
 
 const description = document.querySelector("#description");
 
-const type = document.querySelector("#type");
+const type = document.querySelector("#type"); //what the student should type
 
 const input = document.querySelector("#mode_input"); //typing input
+
+const test = document.querySelector("#test")
 
 function say(text) { //taken from gbishop runner example game
     var msg = new SpeechSynthesisUtterance(text);
@@ -16,7 +18,15 @@ function say(text) { //taken from gbishop runner example game
 function pickLetter() { //Text generator for mode 1
     var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '
     const index = Math.floor(Math.random() * (alphabet.length-1))
-    return alphabet[index]
+    return alphabet[index].toLowerCase()
+}
+
+function testCorrect(answer, key) {
+    if (answer.equals(key)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function pickWordOrPhrase() { //Text generator for mode 2
@@ -24,9 +34,9 @@ function pickWordOrPhrase() { //Text generator for mode 2
     var phrases = ["Thank you", "Good luck", "What is your name", "Once in a blue moon", "Never say never", "Where is the library"];
     var wordorphrase = Math.floor(Math.random() * 2);
     if (wordorphrase <= 1) {
-        return words[Math.floor(Math.random() * (words.length - 1))]
+        return words[Math.floor(Math.random() * (words.length - 1))].toLowerCase()
     } else {
-        return phrases[Math.floor(Math.random() * (phrases.length - 1))]
+        return phrases[Math.floor(Math.random() * (phrases.length - 1))].toLowerCase()
     }
 }
 
@@ -35,7 +45,9 @@ mode.addEventListener("keyup", () => {
     if (m == 1) {
         //Practice mode: learn where keys are on keyboard
         heading.textContent = "Practice Mode"; //1 = practice mode, set heading
-        description.textContent = "Type the letter spoken.";
+        description.textContent = "Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit.";
+        say("Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit.")
+        say("I will now begin reading off letters for you to type.")
         const txt = pickLetter();
         if (txt == " ") {
             say("Space")
@@ -47,15 +59,22 @@ mode.addEventListener("keyup", () => {
     } else if (m == 2) {
         //Test mode: practice typing words and sentences
         heading.textContent = "Test Mode"; //2 = test mode, set heading
-        description.textContent = "Type the word or phrase spoken.";
+        description.textContent = "Type the word or phrase spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.";
+        say("Type the word or phrase spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.");
+        say("I will now begin reading off words and phrases for you to type.");
         const txt = pickWordOrPhrase();
         say(txt);
         type.textContent = txt;
     } else {
         heading.textContent = "Invalid mode! Please type 1 or 2."; //can only type 1 or 2, set heading
         description.textContent = "Game will not begin until a valid mode is selected."
+        say("Game will not begin until a valid mode is selected.")
     }
 });
 
-//input.addEventListener("keyup", () => {
-//})
+input.addEventListener("keyup", () => {
+    let key = type.value;
+    let answer = input.value;
+    let m = Number.parseInt(mode.value, 10);
+    say(answer[answer.length - 1])
+})
