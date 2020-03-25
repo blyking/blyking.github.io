@@ -40,11 +40,17 @@ function pickWordOrPhrase() { //Text generator for mode 2
     }
 }
 
+function pickSentence() { //Text generator for mode 3
+    var sentences = ["The quick brown fox jumps over the lazy dog", "Would you like to come with me and study at the library", "My dad is tall but my uncle is taller", "I want to study biology when I go to college", "I like to play soccer and football", "Math is my favorite school subject", "Which book should I read tonight"]
+    var index = Math.floor(Math.random() * (sentences.length - 1))
+    return sentences[index].toLowerCase()
+}
+
 mode.addEventListener("keyup", () => {
     const m = Number.parseInt(mode.value, 10);
     if (m == 1) {
         //Practice mode: learn where keys are on keyboard
-        heading.textContent = "Practice Mode"; //1 = practice mode, set heading
+        heading.textContent = "Tutorial Mode"; //1 = tutorial mode, set heading
         description.textContent = "Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit.";
         say("Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit.")
         say("I will now begin reading off letters for you to type.")
@@ -58,11 +64,19 @@ mode.addEventListener("keyup", () => {
         }
     } else if (m == 2) {
         //Test mode: practice typing words and sentences
-        heading.textContent = "Test Mode"; //2 = test mode, set heading
+        heading.textContent = "Practice Mode"; //2 = practice mode, set heading
         description.textContent = "Type the word or phrase spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.";
         say("Type the word or phrase spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.");
         say("I will now begin reading off words and phrases for you to type.");
         const txt = pickWordOrPhrase();
+        say(txt);
+        type.textContent = txt;
+    } else if (m == 3) {
+        heading.textContent = "Test Mode"; //3 = test mode, set heading
+        description.textContent = "Type the sentence spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.";
+        say("Type the sentence spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.");
+        say("I will now begin reading off sentences for you to type.");
+        const txt = pickSentence();
         say(txt);
         type.textContent = txt;
     } else {
