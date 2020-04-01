@@ -121,7 +121,7 @@ function CheckMode1(type, answer) {
         } else if (NumberRowKeyboard.indexOf(type) !== -1) {
             say(type);
             say("Is on the second to top row of most keyboards.");
-            say("This row, from left ro right, is tilde, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, minus, equals, backspace.");
+            say("This row, from left to right, is tilde, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, minus, equals, backspace.");
         }
         return(false);
     }
@@ -138,7 +138,7 @@ input.addEventListener("keyup", () => {
             const Correct = CheckMode1(k, answer);
             if (Correct == true) {
                 say("Correct! I will now reset the textbox and read out a new letter.");
-                input.reset()
+                input.value = "";
                 const txt = pickLetter();
                 type.textContent = txt;
                 say(txt);
