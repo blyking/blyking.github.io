@@ -99,29 +99,35 @@ mode.addEventListener("keyup", () => {
 function CheckMode1(type, answer) {
     //console.log("String(type) = " + String(type) + ", String(answer) = " + String(answer) + ", String(answer[0]) = " + String(answer[0]));
     //console.log((type == answer[0]).toString());
+    const deletePrompt = "Press backspace, located far right, second from top to clear your answer. Now try again.";
     if (type == answer[0]) {
         /* Ths line below this doesn't work, so I commented it out */
         //test.textContent = type;
         return(true);
     } else {
         say("Incorrect!");
-        test.textContent = type;
+        // test variable currently not working
+        //test.textContent = type;
         if (TopRowKeyboard.indexOf(type) !== -1) {
             say(type)
-            say("Is on the second to third row of most keyboards.");
-            say("This row, from left to right, is tab, q, w, e, r, t, y, u, i, o, p, bracket, bracket, backslash.")
+            say("Is on the third to top row of most keyboards.");
+            say("This row, from left to right, is tab, q, w, e, r, t, y, u, i, o, p, open bracket, close bracket, backslash.");
+            say(deletePrompt);
         } else if (MiddleRowKeyboard.indexOf(type) !== -1) {
             say(type)
             say("Is on the fourth to top row of most keyboards.");
             say("This row, from left to right, is Caps Lock, a, s, d, f, g, h, j, k, l, semi-colon, apostrophe, enter.");
+            say(deletePrompt);
         } else if (BottomRowKeyboard.indexOf(type) !== -1) {
             say(type);
             say("Is on the fifth to top row of most keyboards.");
             say("This row, from left to right, is shift, z, x, c, v, b, n, m, comma, period, slash, shift.");
+            say(deletePrompt);
         } else if (NumberRowKeyboard.indexOf(type) !== -1) {
             say(type);
             say("Is on the second to top row of most keyboards.");
             say("This row, from left to right, is tilde, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, minus, equals, backspace.");
+            say(deletePrompt);
         }
         return(false);
     }
