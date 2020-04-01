@@ -97,9 +97,12 @@ mode.addEventListener("keyup", () => {
 });
 
 function CheckMode1(type, answer) {
+    //console.log("String(type) = " + String(type) + ", String(answer) = " + String(answer) + ", String(answer[0]) = " + String(answer[0]));
+    //console.log((type == answer[0]).toString());
     if (type == answer[0]) {
-        test.textContent = type;
-        return(True);
+        /* Ths line below this doesn't work, so I commented it out */
+        //test.textContent = type;
+        return(true);
     } else {
         say("Incorrect!");
         test.textContent = type;
@@ -120,20 +123,21 @@ function CheckMode1(type, answer) {
             say("Is on the second to top row of most keyboards.");
             say("This row, from left ro right, is tilde, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, minus, equals, backspace.");
         }
-        return(False);
+        return(false);
     }
 }
 
 input.addEventListener("keyup", () => {
-    let k = type.value;
+    let k = type.textContent;
     let answer = input.value;
     let m = Number.parseInt(mode.value, 10);
     say(answer[answer.length - 1]);
+    //console.log("k = " + k + ", answer = " + answer + ", m = " + m);
     if (m == 1) {
         if (event.key === "Enter") {
             const Correct = CheckMode1(k, answer);
-            if (Correct == True) {
-                say("Correct! I will now reset the textbox and read out a new letter.")
+            if (Correct == true) {
+                say("Correct! I will now reset the textbox and read out a new letter.");
                 input.reset()
                 const txt = pickLetter();
                 type.textContent = txt;
