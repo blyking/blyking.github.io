@@ -10,6 +10,16 @@ const input = document.querySelector("#mode_input"); //typing input
 
 const test = document.querySelector("#test")
 
+const TopRowKeyboard = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"]
+
+const MiddleRowKeyboard = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
+
+const BottomRowKeyboard = ["z", "x", "c", "v", "b", "n", "m"]
+
+const NumberRowKeyboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+
+const Space = "Space"
+
 function say(text) { //taken from gbishop runner example game
     var msg = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(msg);
@@ -86,9 +96,49 @@ mode.addEventListener("keyup", () => {
     }
 });
 
+function CheckMode1(type, answer) {
+    if (type == answer[0]) {
+        test.textContent = type;
+        return(True);
+    } else {
+        say("Incorrect!");
+        test.textContent = type;
+        if (TopRowKeyboard.indexOf(type) !== -1) {
+            say(type)
+            say("Is on the second to third row of most keyboards.");
+            say("This row, from left to right, is tab, q, w, e, r, t, y, u, i, o, p, bracket, bracket, backslash.")
+        } else if (MiddleRowKeyboard.indexOf(type) !== -1) {
+            say(type)
+            say("Is on the fourth to top row of most keyboards.");
+            say("This row, from left to right, is Caps Lock, a, s, d, f, g, h, j, k, l, semi-colon, apostrophe, enter.");
+        } else if (BottomRowKeyboard.indexOf(type) !== -1) {
+            say(type);
+            say("Is on the fifth to top row of most keyboards.");
+            say("This row, from left to right, is shift, z, x, c, v, b, n, m, comma, period, slash, shift.");
+        } else if (NumberRowKeyboard.indexOf(type) !== -1) {
+            say(type);
+            say("Is on the second to top row of most keyboards.");
+            say("This row, from left ro right, is tilde, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, minus, equals, backspace.");
+        }
+        return(False);
+    }
+}
+
 input.addEventListener("keyup", () => {
-    let key = type.value;
+    let k = type.value;
     let answer = input.value;
     let m = Number.parseInt(mode.value, 10);
-    say(answer[answer.length - 1])
+    say(answer[answer.length - 1]);
+    if (m == 1) {
+        if (event.key === "Enter") {
+            const Correct = CheckMode1(k, answer);
+            if (Correct == True) {
+                say("Correct! I will now reset the textbox and read out a new letter.")
+                input.reset()
+                const txt = pickLetter();
+                type.textContent = txt;
+                say(txt);
+            }
+        }
+    }
 })
