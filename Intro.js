@@ -8,7 +8,7 @@ const type = document.querySelector("#type"); //what the student should type
 
 const input = document.querySelector("#mode_input"); //typing input
 
-const test = document.querySelector("#test")
+const test = document.querySelector("#test");
 
 const TopRowKeyboard = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"]
 
@@ -133,11 +133,87 @@ function CheckMode1(type, answer) {
     }
 }
 
+function CheckNumberOfErrors(type, answer) {
+    var diff = 0;
+    var len = 0;
+    const alen = answer.length;
+    const tlen = type.length;
+    const change = answer.length - type.length;
+    //test.textContent = alen.toString();
+    if (tlen > alen) {
+        len = alen;
+    } else {
+        len = tlen;
+    }
+
+    for (i = 0; i <= len-1; i++) {
+        if (type[i] != answer[i]) {
+            diff++;
+        }
+    }
+    if (change != 0) {
+        if (change < 1) {
+            change = type.length - answer.length;
+            diff = diff + change;
+        } else {
+            diff = diff + change;
+        }
+    }
+
+    return(diff);
+}
+
+function IndexOfSingleError(type, answer) {
+    var diff = 0;
+    var len = 0;
+    const alen = answer.length;
+    const tlen = type.length;
+    if (tlen > alen) {
+        len = alen;
+    } else {
+        len = tlen;
+    }
+
+    for (i = 0; i <= len-1; i++) {
+        if (type[i] != answer[i]) {
+            return(i);
+        }
+    }
+    
+    return(-1);
+}
+
+function CheckMode2(type, answer){
+    if (type == answer) {
+        return(true);
+    } else {
+        say("Incorrect.")
+        const diff = CheckNumberOfErrors(type, answer);
+        if (diff == 1) {
+            const index = IndexOfSingleError(type, answer);
+            say("You made one error. You typed");
+            say(answer[index]);
+            say("instead of");
+            say(type[index]);
+            say("Please hit backspace and retype the incorrect letter.")
+        } else {
+            say("You made");
+            say(diff);
+            say("errors. I will now spell the word for you.")
+            for (i = 0; i < type.length; i++) {
+                say(type[i]);
+            }
+        }
+    }
+}
+
 input.addEventListener("keyup", () => {
     let k = type.textContent;
     let answer = input.value;
     let m = Number.parseInt(mode.value, 10);
-    say(answer[answer.length - 1]);
+    if (event.key !== "Enter") {
+        say(answer[answer.length - 1]);
+    }
     //console.log("k = " + k + ", answer = " + answer + ", m = " + m);
     if (m == 1) {
         if (event.key === "Enter") {
@@ -146,6 +222,17 @@ input.addEventListener("keyup", () => {
                 say("Correct! I will now reset the textbox and read out a new letter.");
                 input.value = "";
                 const txt = pickLetter();
+                type.textContent = txt;
+                say(txt);
+            }
+        }
+    } else if (m == 2) {
+        if (event.key == "Enter") {
+            const correct = CheckMode2(k, answer);
+            if (correct == true) {
+                say("Correct! I will now reset the textbox and read out a new letter.")
+                input.value = "";
+                const txt = pickWordOrPhrase();
                 type.textContent = txt;
                 say(txt);
             }
