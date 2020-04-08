@@ -138,7 +138,7 @@ function CheckNumberOfErrors(type, answer) {
     var len = 0;
     const alen = answer.length;
     const tlen = type.length;
-    const change = answer.length - type.length;
+    let change = answer.length - type.length;
     //test.textContent = alen.toString();
     if (tlen > alen) {
         len = alen;
@@ -189,6 +189,7 @@ function CheckMode2(type, answer){
     } else {
         say("Incorrect.")
         const diff = CheckNumberOfErrors(type, answer);
+        console.log(diff);
         if (diff == 1) {
             const index = IndexOfSingleError(type, answer);
             say("You made one error. You typed");
