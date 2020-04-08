@@ -211,11 +211,14 @@ input.addEventListener("keyup", () => {
     let k = type.textContent;
     let answer = input.value;
     let m = Number.parseInt(mode.value, 10);
+    if (answer.length < 1) {
+        say("Please type your answer before submitting.")
+    }
     if (event.key !== "Enter") {
         say(answer[answer.length - 1]);
     }
     //console.log("k = " + k + ", answer = " + answer + ", m = " + m);
-    if (m == 1) {
+    if (m == 1 && answer.length > 0) {
         if (event.key === "Enter") {
             const Correct = CheckMode1(k, answer);
             if (Correct == true) {
@@ -226,7 +229,7 @@ input.addEventListener("keyup", () => {
                 say(txt);
             }
         }
-    } else if (m == 2) {
+    } else if (m == 2 && answer.length > 0) {
         if (event.key == "Enter") {
             const correct = CheckMode2(k, answer);
             if (correct == true) {
