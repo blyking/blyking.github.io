@@ -20,6 +20,11 @@ const NumberRowKeyboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
 const Space = "Space"
 
+const numArray = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eigth", "Ninth", "Tenth", "Eleventh",
+                  "Twelfth", "Thirteenth", "Fourteenth", "Fifteenth", "Sixteenth", "Seventeenth", "Eighteenth", "Nineteenth", "Twentieth"];
+
+let checkWordOrPhrase = "";
+
 function say(text) { //taken from gbishop runner example game
     var msg = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(msg);
@@ -44,8 +49,10 @@ function pickWordOrPhrase() { //Text generator for mode 2
     var phrases = ["Thank you", "Good luck", "What is your name", "Once in a blue moon", "Never say never", "Where is the library"];
     var wordorphrase = Math.floor(Math.random() * 2);
     if (wordorphrase <= 1) {
+        checkWordOrPhrase = "word";
         return words[Math.floor(Math.random() * (words.length - 1))].toLowerCase()
     } else {
+        checkWordOrPhrase = "phrase";
         return phrases[Math.floor(Math.random() * (phrases.length - 1))].toLowerCase()
     }
 }
@@ -190,12 +197,18 @@ function CheckMode2(type, answer){
         say("Incorrect.")
         const diff = CheckNumberOfErrors(type, answer);
         console.log(diff);
+        console.log(checkWordOrPhrase);
         if (diff == 1) {
             const index = IndexOfSingleError(type, answer);
             say("You made one error. You typed");
             say(answer[index]);
             say("instead of");
             say(type[index]);
+            if(checkWordOrPhrase == "word"){
+                say("at the" + numArray[index] + "letter of the word.");
+            }else if(checkWordOrPhrase == "phrase"){
+                //TO DO LATER MAYBE? to tell the user what word the user made the error at in the phrase?
+            }
             say("Please hit backspace and retype the incorrect letter.")
         } else {
             say("You made");
