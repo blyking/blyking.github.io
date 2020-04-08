@@ -47,7 +47,7 @@ function testCorrect(answer, key) {
 function pickWordOrPhrase() { //Text generator for mode 2
     var words = ["Hello", "World", "Puppy", "Alphabet", "Chemistry", "Beach", "Kitten", "Teacher", "School", "Fox", "Blue", "Color", "Sky", "Lake", "Skateboard", "Whisper", "President", "Government", "Whom", "No", "Thanks", "Cold", "Weather", "Please"];
     var phrases = ["Thank you", "Good luck", "What is your name", "Once in a blue moon", "Never say never", "Where is the library"];
-    var wordorphrase = Math.floor(Math.random() * 2);
+    var wordorphrase = (Math.random() * 2);
     if (wordorphrase <= 1) {
         checkWordOrPhrase = "word";
         return words[Math.floor(Math.random() * (words.length - 1))].toLowerCase()
@@ -196,8 +196,8 @@ function CheckMode2(type, answer){
     } else {
         say("Incorrect.")
         const diff = CheckNumberOfErrors(type, answer);
-        console.log(diff);
-        console.log(checkWordOrPhrase);
+        //console.log(diff);
+        //console.log(checkWordOrPhrase);
         if (diff == 1) {
             const index = IndexOfSingleError(type, answer);
             say("You made one error. You typed");
@@ -207,7 +207,36 @@ function CheckMode2(type, answer){
             if(checkWordOrPhrase == "word"){
                 say("at the" + numArray[index] + "letter of the word.");
             }else if(checkWordOrPhrase == "phrase"){
-                //TO DO LATER MAYBE? to tell the user what word the user made the error at in the phrase?
+                let letterIndex = 0;
+                let wordIndex = 0;
+                let phraseSpaceIndexes = [];                                        //stores an array of indexes in the phrase where spaces are located.
+                let j = 0;
+                //console.log("length of what to type is: " + type.length);
+                //console.log("index of the mistake is: " + index);
+                for(i = 0; i <= type.length-1; i++){                                //fills out phraseSpaceIndexes array 1 by 1 with indexes of where spaces are located.
+                    if(type[i] == " "){
+                        phraseSpaceIndexes[j] = i; 
+                        j++;
+                    }
+                }
+                //console.log("phraseSpaceIndexes array: " + phraseSpaceIndexes);
+                for(i = 0; i <= phraseSpaceIndexes.length-1; i++){                  //goes through phraseSpaceIndexes, compares indexes of mistake and indexes of all spaces.  
+                    if(phraseSpaceIndexes[i] > index){                              //if the index of the mistake is less than the index of a space, then set the wordIndex = to the word before that space.
+                        wordIndex = i;
+                        break;
+                    }
+                }
+                //console.log("wordIndex is: " + wordIndex);
+                if(phraseSpaceIndexes[phraseSpaceIndexes.length-1] < index){        //if wordIndex is never updated because the mistake is in the last word, make wordIndex the last word.
+                    wordIndex = phraseSpaceIndexes.length;
+                }
+                //console.log("wordIndex is now: " + wordIndex);
+                if(wordIndex == 0){                                                 //if the mistake is in the first word, just use the raw mistake index.
+                    letterIndex = index;
+                }else{
+                    letterIndex = index - (phraseSpaceIndexes[wordIndex-1] + 1);    //phraseSpaceIndexes[wordIndex-1] + 1 gets the index of the beginning of the word that was incorrect and is 
+                }                                                                   //subtracted from the index of the mistake in order to get the correct index in the numArray to be read out for the letter.
+                say("on the" + numArray[wordIndex] + "word of the phrase, " + numArray[letterIndex] + "letter of the word.");
             }
             say("Please hit backspace and retype the incorrect letter.")
         } else {
