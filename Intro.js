@@ -254,7 +254,7 @@ input.addEventListener("keyup", () => {
     let k = type.textContent;
     let answer = input.value;
     let m = Number.parseInt(mode.value, 10);
-    if (answer.length < 1) {
+    if (answer.length < 1 && event.key != 8) {
         say("Please type your answer before submitting.")
     }
     if (event.key !== "Enter") {
