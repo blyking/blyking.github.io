@@ -250,6 +250,15 @@ function CheckMode2(type, answer){
     }
 }
 
+function CheckMode3(type, answer) {
+    if (type == answer) {
+        return true;
+    } else {
+        say("Incorrect");
+        return false;
+    }
+}
+
 input.addEventListener("keyup", () => {
     let k = type.textContent;
     let answer = input.value;
@@ -280,6 +289,16 @@ input.addEventListener("keyup", () => {
                 input.value = "";
                 const txt = pickWordOrPhrase();
                 type.textContent = txt;
+                say(txt);
+            }
+        }
+    } else if (m == 3 && answer.length > 0) {
+        if (event.key == "Enter") {
+            const correct = CheckMode3(k, answer);
+            if (correct == true) {
+                say("Correct! I will now reset the textbox and read out a new letter.")
+                input.value = "";
+                const txt = pickSentence();
                 say(txt);
             }
         }
