@@ -29,7 +29,7 @@ let checkWordOrPhrase = "";
 
 document.addEventListener("click", function () {
     if (hasClicked == false) {
-        say("To learn the keys and locations, type 1 (second from left, second from top) in the first box below. To test your knowledge by typing out words and phrases, hit 2 (third from left, second from top) in the first box below. To go to test mode, where you will type out full sentences with no hints, hit 3 (fourth from left, second from top). The mode can be changed at any time by changing the number in the top box.")
+        say("To learn the keys and locations, type 1 (second from left, second from top) in the first box below. To test your knowledge by typing out words and phrases, hit 2 (third from left, second from top) in the first box below. To go to test mode, where you will type out full sentences with no hints, hit 3 (fourth from left, second from top). For more information on the game, please type 4 (second from top, fifth from left). The mode can be changed at any time by changing the number in the top box.")
         hasClicked = true;
     }
 })
@@ -105,6 +105,9 @@ mode.addEventListener("keyup", () => {
         const txt = pickSentence();
         say(txt);
         type.textContent = txt;
+    } else if (m == 4) {
+        say("Welcome to Tarheel Typing! This game is designed to help you learn the numberical and alphabetical key locations on your keyboard. Please start with the tutorial mode (mode 1) until you are completely comfortable with the locations of the keys. After that, we recommend practicing on practice mode (mode 2) before progressing to the test mode (mode 3). Our program will read out the last letter typed to help you know what keys you are pressing, and when you hit backspace, the new last letter of your answer will be read out loud. For futher instructions and information, please refer to the README.")
+    }
     } else {
         heading.textContent = "Invalid mode! Please type 1 or 2."; //can only type 1 or 2, set heading
         description.textContent = "Game will not begin until a valid mode is selected."
