@@ -296,7 +296,7 @@ function CheckMode3(type, answer) {
         } else {
             say("You made");
             say(diff);
-            say("errors. I will now spell out the phrase for you.")
+            say("errors. Please hold backspace to clear the input and type the answer as I read each letter. I will now spell out the phrase for you.")
             for (i = 0; i < type.length; i++) {
                 if (type[i] === " ") {
                     say("Space"); 
@@ -305,7 +305,6 @@ function CheckMode3(type, answer) {
                 }
             }
         }
-        say("Please hit backspace and try again.");
         return false;
     }
 }
