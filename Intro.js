@@ -10,6 +10,8 @@ const input = document.querySelector("#mode_input"); //typing input
 
 const test = document.querySelector("#test");
 
+var hasClicked = false;
+
 const TopRowKeyboard = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"]
 
 const MiddleRowKeyboard = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
@@ -24,6 +26,13 @@ const numArray = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seven
                   "Twelfth", "Thirteenth", "Fourteenth", "Fifteenth", "Sixteenth", "Seventeenth", "Eighteenth", "Nineteenth", "Twentieth"];
 
 let checkWordOrPhrase = "";
+
+document.addEventListener("click", function () {
+    if (hasClicked == false) {
+        say("To learn the keys and locations, type 1 (second from left, second from top) in the first box below. To test your knowledge by typing out words and phrases, hit 2 (third from left, second from top) in the first box below. To go to test mode, where you will type out full sentences with no hints, hit 3 (fourth from left, second from top). The mode can be changed at any time by changing the number in the top box.")
+        hasClicked = true;
+    }
+})
 
 function say(text) { //taken from gbishop runner example game
     var msg = new SpeechSynthesisUtterance(text);
@@ -190,14 +199,50 @@ function IndexOfSingleError(type, answer) {
     return(-1);
 }
 
+function findSpaceIndexes(string) {
+    let phraseSpaceIndexes = [];
+    test.textContent = "The function is being reached";
+    let j = 0;
+    for (i = 0; i <= string.length-1; i++) {                                //fills out phraseSpaceIndexes array 1 by 1 with indexes of where spaces are located.
+        if(string[i] == " "){
+            phraseSpaceIndexes[j] = i; 
+            j++;
+        }
+    }
+    return phraseSpaceIndexes;
+}
+
+function findWordIndex(phraseSpaceIndexes, index) {
+    let wordIndex = 0;
+    for(i = 0; i <= phraseSpaceIndexes.length-1; i++){                  //goes through phraseSpaceIndexes, compares indexes of mistake and indexes of all spaces.  
+        if(phraseSpaceIndexes[i] > index){                              //if the index of the mistake is less than the index of a space, then set the wordIndex = to the word before that space.
+            wordIndex = i;
+            break;
+        }
+    }
+    //console.log("wordIndex is: " + wordIndex);
+    if(phraseSpaceIndexes[phraseSpaceIndexes.length-1] < index){        //if wordIndex is never updated because the mistake is in the last word, make wordIndex the last word.
+        wordIndex = phraseSpaceIndexes.length;
+    }
+    return wordIndex;
+}
+
+function findLetterIndex(phraseSpaceIndexes, wordIndex, index) {
+    if (wordIndex == 0) {                                                 //if the mistake is in the first word, just use the raw mistake index.
+        letterIndex = index;
+    } else {
+        letterIndex = index - (phraseSpaceIndexes[wordIndex-1] + 1);    //phraseSpaceIndexes[wordIndex-1] + 1 gets the index of the beginning of the word that was incorrect and is 
+        test.textContent = index;
+    }
+    return letterIndex;
+}
+
 function CheckMode2(type, answer){
     if (type == answer) {
         return(true);
     } else {
         say("Incorrect.")
         const diff = CheckNumberOfErrors(type, answer);
-        //console.log(diff);
-        //console.log(checkWordOrPhrase);
         if (diff == 1) {
             const index = IndexOfSingleError(type, answer);
             say("You made one error. You typed");
@@ -207,44 +252,22 @@ function CheckMode2(type, answer){
             if(checkWordOrPhrase == "word"){
                 say("at the" + numArray[index] + "letter of the word.");
             }else if(checkWordOrPhrase == "phrase"){
-                let letterIndex = 0;
-                let wordIndex = 0;
-                let phraseSpaceIndexes = [];                                        //stores an array of indexes in the phrase where spaces are located.
-                let j = 0;
-                //console.log("length of what to type is: " + type.length);
-                //console.log("index of the mistake is: " + index);
-                for(i = 0; i <= type.length-1; i++){                                //fills out phraseSpaceIndexes array 1 by 1 with indexes of where spaces are located.
-                    if(type[i] == " "){
-                        phraseSpaceIndexes[j] = i; 
-                        j++;
-                    }
-                }
-                //console.log("phraseSpaceIndexes array: " + phraseSpaceIndexes);
-                for(i = 0; i <= phraseSpaceIndexes.length-1; i++){                  //goes through phraseSpaceIndexes, compares indexes of mistake and indexes of all spaces.  
-                    if(phraseSpaceIndexes[i] > index){                              //if the index of the mistake is less than the index of a space, then set the wordIndex = to the word before that space.
-                        wordIndex = i;
-                        break;
-                    }
-                }
-                //console.log("wordIndex is: " + wordIndex);
-                if(phraseSpaceIndexes[phraseSpaceIndexes.length-1] < index){        //if wordIndex is never updated because the mistake is in the last word, make wordIndex the last word.
-                    wordIndex = phraseSpaceIndexes.length;
-                }
-                //console.log("wordIndex is now: " + wordIndex);
-                if(wordIndex == 0){                                                 //if the mistake is in the first word, just use the raw mistake index.
-                    letterIndex = index;
-                }else{
-                    letterIndex = index - (phraseSpaceIndexes[wordIndex-1] + 1);    //phraseSpaceIndexes[wordIndex-1] + 1 gets the index of the beginning of the word that was incorrect and is 
-                }                                                                   //subtracted from the index of the mistake in order to get the correct index in the numArray to be read out for the letter.
+                let phraseSpaceIndexes = findSpaceIndexes(type);
+                let wordIndex = findWordIndex(phraseSpaceIndexes, index);  
+                let letterIndex = findLetterIndex(phraseSpaceIndexes, wordIndex, index);                                                                //subtracted from the index of the mistake in order to get the correct index in the numArray to be read out for the letter.
                 say("on the" + numArray[wordIndex] + "word of the phrase, " + numArray[letterIndex] + "letter of the word.");
             }
             say("Please hit backspace and retype the incorrect letter.")
         } else {
             say("You made");
             say(diff);
-            say("errors. I will now spell the word for you.")
+            say("errors. I will now spell the answer for you.")
             for (i = 0; i < type.length; i++) {
-                say(type[i]);
+                if (type[i] === " ") {
+                    say("Space"); 
+                } else {
+                    say(type[i]);
+                }
             }
         }
     }
@@ -255,6 +278,34 @@ function CheckMode3(type, answer) {
         return true;
     } else {
         say("Incorrect");
+        const diff = CheckNumberOfErrors(type, answer);
+
+        if (diff == 1) {
+            const index = IndexOfSingleError(type, answer);
+            let phraseSpaceIndexes = findSpaceIndexes(type);
+            let wordIndex = findWordIndex(phraseSpaceIndexes, index);
+            let letterIndex = findLetterIndex(phraseSpaceIndexes, wordIndex, index);
+
+            say("You made one error.")
+            say("You typed")
+            say(answer[index])
+            say("instead of")
+            say(type[index]);
+            say(`on the${numArray[wordIndex]}word of the phrase, ${numArray[letterIndex]}of the word.`)
+
+        } else {
+            say("You made");
+            say(diff);
+            say("errors. I will now spell out the phrase for you.")
+            for (i = 0; i < type.length; i++) {
+                if (type[i] === " ") {
+                    say("Space"); 
+                } else {
+                    say(type[i]);
+                }
+            }
+        }
+        say("Please hit backspace and try again.");
         return false;
     }
 }
@@ -267,9 +318,13 @@ input.addEventListener("keyup", () => {
         say("Please type your answer before submitting.")
     }
     if (event.key !== "Enter") {
-        say(answer[answer.length - 1]);
+        if (answer[answer.length - 1] === " ") {
+            say("Space");
+        } else {
+            say(answer[answer.length - 1]);
+        }
     }
-    //console.log("k = " + k + ", answer = " + answer + ", m = " + m);
+
     if (m == 1 && answer.length > 0) {
         if (event.key === "Enter") {
             const Correct = CheckMode1(k, answer);
