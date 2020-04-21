@@ -27,12 +27,15 @@ const numArray = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seven
 
 let checkWordOrPhrase = "";
 
-document.addEventListener("click", function () {
+if (document.activeElement.nodeName = 'TEXTAREA') {
     if (hasClicked == false) {
-        say("To learn the keys and locations, type 1 (second from left, second from top) in the first box below. To test your knowledge by typing out words and phrases, hit 2 (third from left, second from top) in the first box below. To go to test mode, where you will type out full sentences with no hints, hit 3 (fourth from left, second from top). For more information on the game, please type 4 (second from top, fifth from left). The mode can be changed at any time by changing the number in the top box.")
+        say("To learn the keys and locations, type 1 (second from left, second from top) in the first box below. To test your knowledge by typing out words and phrases, hit 2 (third from left, second from top) in the first box below. To go to test mode, where you will type out full sentences with no hints, hit 3 (fourth from left, second from top). For more information on the game, please type 4 (second from top, fifth from left). The mode can be changed at any time by changing the number in the top box, which can be returned to by selecting the up arrow key (located in lower right area of keyboard) while in modes 1, 2, and 3. The up arrow is situated differently for many keyboard models, so ask an adult or friend for help if needed.")
         hasClicked = true;
     }
-})
+}
+
+document.getElementById(mode.id).focus();
+document.getElementById(mode.id).select();
 
 function say(text) { //taken from gbishop runner example game
     var msg = new SpeechSynthesisUtterance(text);
@@ -74,11 +77,15 @@ function pickSentence() { //Text generator for mode 3
 
 mode.addEventListener("keyup", () => {
     const m = Number.parseInt(mode.value, 10);
+    if (m == 1 || m == 2 || m == 3) {
+        document.getElementById(input.id).focus();
+        document.getElementById(input.id).select();
+    }
     if (m == 1) {
         //Practice mode: learn where keys are on keyboard
         heading.textContent = "Tutorial Mode"; //1 = tutorial mode, set heading
         description.textContent = "Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit.";
-        say("Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit.")
+        say("You have selected Tutorial Mode. Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit.")
         say("I will now begin reading off letters for you to type.")
         const txt = pickLetter();
         if (txt == " ") {
@@ -91,7 +98,7 @@ mode.addEventListener("keyup", () => {
     } else if (m == 2) {
         //Test mode: practice typing words and sentences
         heading.textContent = "Practice Mode"; //2 = practice mode, set heading
-        description.textContent = "Type the word or phrase spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.";
+        description.textContent = "You have selected practice mode. Type the word or phrase spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.";
         say("Type the word or phrase spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.");
         say("I will now begin reading off words and phrases for you to type.");
         const txt = pickWordOrPhrase();
@@ -99,7 +106,7 @@ mode.addEventListener("keyup", () => {
         type.textContent = txt;
     } else if (m == 3) {
         heading.textContent = "Test Mode"; //3 = test mode, set heading
-        description.textContent = "Type the sentence spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.";
+        description.textContent = "You have selected test mode. Type the sentence spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.";
         say("Type the sentence spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.");
         say("I will now begin reading off sentences for you to type.");
         const txt = pickSentence();
@@ -318,7 +325,12 @@ input.addEventListener("keyup", () => {
     if (answer.length < 1 && event.key === "Enter") {
         say("Please type your answer before submitting.")
     }
-    if (event.key !== "Enter") {
+    if (event.key == "ArrowUp") {
+        document.getElementById(mode.id).focus();
+        document.getElementById(mode.id).select();
+        say("You have returned to the mode selection text box. Please type 1, 2, 3, or 4.");
+    }
+    if (event.key !== "Enter" && event.key !== "ArrowUp") {
         if (answer[answer.length - 1] === " ") {
             say("Space");
         } else {
