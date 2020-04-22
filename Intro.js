@@ -31,7 +31,7 @@ document.getElementById(mode.id).focus();
 document.getElementById(mode.id).select();
 
 function say(text) { //taken from gbishop runner example game
-  if (speechSynthesis == speaking) {
+    if (speechSynthesis == speaking) {
         speechSynthesis.cancel();
     }
     var msg = new SpeechSynthesisUtterance(text);
@@ -81,6 +81,7 @@ function pickSentence() { //Text generator for mode 3
 mode.addEventListener("keyup", () => {
     const m = Number.parseInt(mode.value, 10);
     if (m == 1 || m == 2 || m == 3) {
+        speechSynthesis.cancel();
         document.getElementById(input.id).focus();
         document.getElementById(input.id).select();
     }
@@ -127,7 +128,7 @@ function CheckMode1(type, answer) {
     //console.log("String(type) = " + String(type) + ", String(answer) = " + String(answer) + ", String(answer[0]) = " + String(answer[0]));
     //console.log((type == answer[0]).toString());
     const deletePrompt = "Press backspace, located far right, second from top to clear your answer. Now try again.";
-    if (type == answer[0]) {
+    if (type == answer[0] && answer.length == 1) {
         /* Ths line below this doesn't work, so I commented it out */
         //test.textContent = type;
         return(true);
@@ -135,6 +136,10 @@ function CheckMode1(type, answer) {
         say("Incorrect!");
         // test variable currently not working
         //test.textContent = type;
+        if (answer.length > 1) {
+            say("You have typed two letters. Please only type 1.");
+            return(false);
+        }
         if (TopRowKeyboard.indexOf(type) !== -1) {
             say(type)
             say("Is on the third to top row of most keyboards.");
