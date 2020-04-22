@@ -38,12 +38,11 @@ document.getElementById(mode.id).focus();
 document.getElementById(mode.id).select();
 
 function say(text) { //taken from gbishop runner example game
+  if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+    }
     var msg = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(msg);
-}
-
-function beQuiet() {
-  window.speechSynthesisInstance.cancel();
 }
 
 function pickLetter() { //Text generator for mode 1
@@ -82,7 +81,6 @@ function pickSentence() { //Text generator for mode 3
 mode.addEventListener("keyup", () => {
     const m = Number.parseInt(mode.value, 10);
     if (m == 1 || m == 2 || m == 3) {
-        beQuiet();
         document.getElementById(input.id).focus();
         document.getElementById(input.id).select();
     }
