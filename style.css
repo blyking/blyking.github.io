@@ -1,0 +1,26 @@
+body {
+    background-color: #4B9CD3;
+}
+
+h1, .label{
+    color: #FFFFFF;
+    text-align: justify;
+    font-family: "Playfair Display",Georgia,"Times New Roman",serif;
+}
+
+h1, #inputDiv{
+    text-align: center;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;    
+}
+
+#labelDiv{
+    width:50%;
+    margin: 0 auto;
+    font: bold;
+}
+
+.custom-logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
