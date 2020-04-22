@@ -43,7 +43,7 @@ function say(text) { //taken from gbishop runner example game
 }
 
 function beQuiet() {
-  window.speechSynthesis.cancel();
+  window.speechSynthesisInstance.cancel();
 }
 
 function pickLetter() { //Text generator for mode 1
