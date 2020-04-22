@@ -27,19 +27,26 @@ const numArray = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seven
 
 let checkWordOrPhrase = "";
 
-document.getElementById(mode.id).focus();
-document.getElementById(mode.id).select();
-
-function say(text) { //taken from gbishop runner example game
-    var msg = new SpeechSynthesisUtterance(text);
-    window.speechSynthesis.speak(msg);
-}
-
 if (document.activeElement.nodeName = 'TEXTAREA') {
     if (hasClicked == false) {
         say("To learn the keys and locations, type 1 (second from left, second from top) in the first box below. To test your knowledge by typing out words and phrases, hit 2 (third from left, second from top) in the first box below. To go to test mode, where you will type out full sentences with no hints, hit 3 (fourth from left, second from top). For more information on the game, please type 4 (second from top, fifth from left). The mode can be changed at any time by changing the number in the top box, which can be returned to by selecting the up arrow key (located in lower right area of keyboard) while in modes 1, 2, and 3. The up arrow is situated differently for many keyboard models, so ask an adult or friend for help if needed.")
         hasClicked = true;
     }
+}
+
+document.getElementById(mode.id).focus();
+document.getElementById(mode.id).select();
+
+if (mode.focus) {
+    if (hasClicked == false) {
+        say("To learn the keys and locations, type 1 (second from left, second from top) in the first box below. To test your knowledge by typing out words and phrases, hit 2 (third from left, second from top) in the first box below. To go to test mode, where you will type out full sentences with no hints, hit 3 (fourth from left, second from top). For more information on the game, please type 4 (second from top, fifth from left). The mode can be changed at any time by changing the number in the top box, which can be returned to by selecting the up arrow key (located in lower right area of keyboard) while in modes 1, 2, and 3. The up arrow is situated differently for many keyboard models, so ask an adult or friend for help if needed.")
+        hasClicked = true;
+    }
+}
+
+function say(text) { //taken from gbishop runner example game
+    var msg = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(msg);
 }
 
 function pickLetter() { //Text generator for mode 1
@@ -78,7 +85,6 @@ function pickSentence() { //Text generator for mode 3
 mode.addEventListener("keyup", () => {
     const m = Number.parseInt(mode.value, 10);
     if (m == 1 || m == 2 || m == 3) {
-        speechSynthesis.cancel();
         document.getElementById(input.id).focus();
         document.getElementById(input.id).select();
     }
@@ -86,7 +92,8 @@ mode.addEventListener("keyup", () => {
         //Practice mode: learn where keys are on keyboard
         heading.textContent = "Tutorial Mode"; //1 = tutorial mode, set heading
         description.textContent = "Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit.";
-        say("You have selected Tutorial Mode. Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit. I will now begin reading off letters for you to type.");
+        say("You have selected Tutorial Mode. Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit.")
+        say("I will now begin reading off letters for you to type.")
         const txt = pickLetter();
         if (txt == " ") {
             say("Space")
@@ -131,12 +138,11 @@ function CheckMode1(type, answer) {
         return(true);
     } else {
         say("Incorrect!");
+        if (answer.length > 1) {
+            say("You have typed more than 1 letter or number. Please only type 1.")
+        }
         // test variable currently not working
         //test.textContent = type;
-        if (answer.length > 1) {
-            say("You have typed two letters. Please only type 1.");
-            return(false);
-        }
         if (TopRowKeyboard.indexOf(type) !== -1) {
             say(type)
             say("Is on the third to top row of most keyboards.");
