@@ -38,9 +38,9 @@ document.getElementById(mode.id).focus();
 document.getElementById(mode.id).select();
 
 function say(text) { //taken from gbishop runner example game
-  if (speechSynthesis.speaking) {
-        speechSynthesis.cancel();
-    }
+  //if (speechSynthesis.speaking) {
+        //speechSynthesis.cancel();
+    //}
     var msg = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(msg);
 }
