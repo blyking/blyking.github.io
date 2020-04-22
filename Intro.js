@@ -57,8 +57,8 @@ function testCorrect(answer, key) {
 }
 
 function pickWordOrPhrase() { //Text generator for mode 2
-    var words = ["Hello", "World", "Puppy", "Alphabet", "Chemistry", "Beach", "Kitten", "Teacher", "School", "Fox", "Blue", "Color", "Sky", "Lake", "Skateboard", "Whisper", "President", "Government", "Whom", "No", "Thanks", "Cold", "Weather", "Please"];
-    var phrases = ["Thank you", "Good luck", "What is your name", "Once in a blue moon", "Never say never", "Where is the library"];
+    var words = ["Hello", "World", "Puppy", "Alphabet", "Chemistry", "Beach", "Kitten", "Teacher", "School", "Fox", "Blue", "Color", "Sky", "Lake", "Skateboard", "Whisper", "President", "Government", "Whom", "No", "Thanks", "Cold", "Weather", "Please", "Math", "Example", "Measure", "Friend", "Country", "Picture", "Women", "Men", "Elephant", "Water", "People", "Dragon", "Animal", "Lunch", "Basket", "Owl", "Nowhere", "Ladder", "Orange", "Blue", "Green", "Blue", "Yellow", "Birthday", "Present", "Letter", "Pencil", "Paper"];
+    var phrases = ["Thank you", "Good luck", "What is your name", "Once in a blue moon", "Never say never", "Where is the library", "See you later", "How are you doing", "Best of both worlds", "Happy birthday to you", "My favorite color is red"];
     var wordorphrase = (Math.random() * 2);
     if (wordorphrase <= 1) {
         checkWordOrPhrase = "word";
@@ -70,7 +70,7 @@ function pickWordOrPhrase() { //Text generator for mode 2
 }
 
 function pickSentence() { //Text generator for mode 3
-    var sentences = ["The quick brown fox jumps over the lazy dog", "Would you like to come with me and study at the library", "My dad is tall but my uncle is taller", "I want to study biology when I go to college", "I like to play soccer and football", "Math is my favorite school subject", "Which book should I read tonight"]
+    var sentences = ["The quick brown fox jumps over the lazy dog", "Would you like to come with me and study at the library", "My dad is tall but my uncle is taller", "I want to study biology when I go to college", "I like to play soccer and football", "Math is my favorite school subject", "Which book should I read tonight", "Can you play my favorite song on the speaker please", "How many push ups can you do", "My mom makes the best macaroni and cheese", "My dog is very fluffy"]
     var index = Math.floor(Math.random() * (sentences.length - 1))
     return sentences[index].toLowerCase()
 }
