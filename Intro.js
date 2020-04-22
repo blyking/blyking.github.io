@@ -42,6 +42,10 @@ function say(text) { //taken from gbishop runner example game
     window.speechSynthesis.speak(msg);
 }
 
+function beQuiet() {
+  window.speechSynthesis.cancel();
+}
+
 function pickLetter() { //Text generator for mode 1
     var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '
     const index = Math.floor(Math.random() * (alphabet.length-1))
@@ -78,6 +82,7 @@ function pickSentence() { //Text generator for mode 3
 mode.addEventListener("keyup", () => {
     const m = Number.parseInt(mode.value, 10);
     if (m == 1 || m == 2 || m == 3) {
+        beQuiet();
         document.getElementById(input.id).focus();
         document.getElementById(input.id).select();
     }
@@ -113,6 +118,7 @@ mode.addEventListener("keyup", () => {
         say(txt);
         type.textContent = txt;
     } else if (m == 4) {
+        beQuiet();
         say("Welcome to Tarheel Typing! This game is designed to help you learn the numerical and alphabetical key locations on your keyboard. Please start with the tutorial mode (mode 1) until you are completely comfortable with the locations of the keys. After that, we recommend practicing on practice mode (mode 2) before progressing to the test mode (mode 3). Our program will read out the last letter typed to help you know what keys you are pressing, and when you hit backspace, the new last letter of your answer will be read out loud. For further instructions and information, please refer to the README.")
     } else {
         heading.textContent = "Invalid mode! Please type 1 or 2."; //can only type 1 or 2, set heading
