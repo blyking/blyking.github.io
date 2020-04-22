@@ -128,7 +128,7 @@ function CheckMode1(type, answer) {
     //console.log("String(type) = " + String(type) + ", String(answer) = " + String(answer) + ", String(answer[0]) = " + String(answer[0]));
     //console.log((type == answer[0]).toString());
     const deletePrompt = "Press backspace, located far right, second from top to clear your answer. Now try again.";
-    if (type == answer[0] && answer.length == 1) {
+    if (type == answer) {
         /* Ths line below this doesn't work, so I commented it out */
         //test.textContent = type;
         return(true);
