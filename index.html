@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
-
-<h1>
+    <img src="https://www.unc.edu/wp-content/uploads/2017/05/logo.svg" class="custom-logo" alt="UNC Alt">
+    <h1>
         Learn How to Type with Tarheel Typing!
-</h1>
+    </h1>
 
 <main>
-    <div>
+    <div id = "labelDiv">
         <label class="label" for="component-name">To learn the keys and locations, type 1 (second from left, second from top) in the first box below. To test your knowledge by typing out words and phrases, hit 2 (third from left, second from top) in the first box below. To go to test mode, where you will type out full sentences with no hints, hit 3 (fourth from left, second from top). For more information on the game, please type 4 (second from top, fifth from left). The mode can be changed at any time by changing the number in the top box, which can be returned to by selecting the up arrow key (located in lower right area of keyboard) while in modes 1, 2, and 3. The up arrow is situated differently for many keyboard models, so ask an adult or friend for help if needed.</label>
       	<br> </br>
-        <input type="text" class="textbox" placeholder="What would you like to do?" id="mode_selection", size = 50, maxlength = 1>
     </div>
 
-    <div>
+    <div id = "inputDiv">
+        <input type="text" class="textbox" placeholder="What would you like to do?" id="mode_selection", size = 50, maxlength = 1>
         <p><b id="heading"></b></p> <!--This is where the heading should update-->
         <p id = "description"></p>
         <i id = "type"></i>
