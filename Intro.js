@@ -113,7 +113,7 @@ mode.addEventListener("keyup", () => {
         say(txt);
         type.textContent = txt;
     } else if (m == 4) {
-        say("Welcome to Tarheel Typing! This game is designed to help you learn the numerical and alphabetical key locations on your keyboard. Please start with the tutorial mode (mode 1) until you are completely comfortable with the locations of the keys. After that, we recommend practicing on practice mode (mode 2) before progressing to the test mode (mode 3). Our program will read out the last letter typed to help you know what keys you are pressing, and when you hit backspace, the new last letter of your answer will be read out loud. For futher instructions and information, please refer to the README.")
+        say("Welcome to Tarheel Typing! This game is designed to help you learn the numerical and alphabetical key locations on your keyboard. Please start with the tutorial mode (mode 1) until you are completely comfortable with the locations of the keys. After that, we recommend practicing on practice mode (mode 2) before progressing to the test mode (mode 3). Our program will read out the last letter typed to help you know what keys you are pressing, and when you hit backspace, the new last letter of your answer will be read out loud. For further instructions and information, please refer to the README.")
     } else {
         heading.textContent = "Invalid mode! Please type 1 or 2."; //can only type 1 or 2, set heading
         description.textContent = "Game will not begin until a valid mode is selected."
