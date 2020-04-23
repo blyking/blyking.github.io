@@ -1,16 +1,22 @@
 body {
     background-color: #4B9CD3;
 }
-
-h1, .label{
+h1{
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+h1, .label, #inputDiv{
     color: #FFFFFF;
     text-align: justify;
     font-family: "Playfair Display",Georgia,"Times New Roman",serif;
 }
 
+#type{
+    color: #000;
+    font:bold;
+}
+
 h1, #inputDiv{
-    text-align: center;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;    
+    text-align: center;   
 }
 
 #labelDiv{
