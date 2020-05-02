@@ -377,6 +377,7 @@ input.addEventListener("keyup", () => {
                 say("Correct! I will now reset the textbox and read out a new letter.")
                 input.value = "";
                 const txt = pickSentence();
+                type.textContent = txt;
                 say(txt);
             }
         }
