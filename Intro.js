@@ -57,7 +57,7 @@ function say(text) { //taken from gbishop runner example game
 }
 
 function pickLetter() { //Text generator for mode 1
-    var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '
+    var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789'
     const index = Math.floor(Math.random() * (alphabet.length-1))
     return alphabet[index].toLowerCase()
 }
@@ -173,6 +173,8 @@ function CheckMode1(type, answer) {
             say("Is on the second to top row of most keyboards.");
             say("This row, from left to right, is tilde, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, minus, equals, backspace.");
             say(deletePrompt);
+        } else if (type == " ") {
+            say("Space is the long horizontal key at the bottom middle of the keyboard.");
         }
         return(false);
     }
@@ -275,9 +277,17 @@ function CheckMode2(type, answer){
         if (diff == 1) {
             const index = IndexOfSingleError(type, answer);
             say("You made one error. You typed");
-            say(answer[index]);
+            if (answer[index] == " ") {
+                say("Space");
+            } else {
+                say(answer[index]);
+            }
             say("instead of");
-            say(type[index]);
+            if (type[index] == " ") {
+                say("Space")
+            } else {
+                say(type[index]);
+            }
             if(checkWordOrPhrase == "word"){
                 say("at the" + numArray[index] + "letter of the word.");
             }else if(checkWordOrPhrase == "phrase"){
@@ -317,7 +327,11 @@ function CheckMode3(type, answer) {
 
             say("You made one error.")
             say("You typed")
-            say(answer[index])
+            if (answer[index] == " ") {
+                say("Space");
+            } else {
+                say(answer[index])
+            }
             say("instead of")
             say(type[index]);
             say(`on the${numArray[wordIndex]}word of the phrase, ${numArray[letterIndex]}of the word.`)
@@ -351,6 +365,7 @@ input.addEventListener("keyup", () => {
         say("You have returned to the mode selection text box. Please type 1, 2, 3, or 4.");
     }
     if (event.key !== "Enter" && event.key !== "ArrowUp") {
+        moveForward = true;
         if (answer[answer.length - 1] === " ") {
             say("Space");
         } else {
@@ -360,6 +375,7 @@ input.addEventListener("keyup", () => {
 
     if (m == 1 && answer.length > 0) {
         if (event.key === "Enter") {
+            moveForward = false;
             const Correct = CheckMode1(k, answer);
             if (Correct == true) {
                 say("Correct! I will now reset the textbox and read out a new letter.");
@@ -371,6 +387,7 @@ input.addEventListener("keyup", () => {
         }
     } else if (m == 2 && answer.length > 0) {
         if (event.key == "Enter") {
+            moveForward = false;
             const correct = CheckMode2(k, answer);
             if (correct == true) {
                 say("Correct! I will now reset the textbox and read out a new letter.")
@@ -382,6 +399,7 @@ input.addEventListener("keyup", () => {
         }
     } else if (m == 3 && answer.length > 0) {
         if (event.key == "Enter") {
+            moveForward = false;
             const correct = CheckMode3(k, answer);
             if (correct == true) {
                 say("Correct! I will now reset the textbox and read out a new letter.")
