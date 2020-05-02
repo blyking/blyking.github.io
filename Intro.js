@@ -48,7 +48,7 @@ if (mode.focus) {
 
 function say(text) { //taken from gbishop runner example game
     var msg = new SpeechSynthesisUtterance(text);
-    if (moveForward == false) {
+    if (moveForward == true) {
         if (window.speechSynthesis.speaking) {
             window.speechSynthesis.cancel();
         }
@@ -105,8 +105,8 @@ mode.addEventListener("keyup", () => {
         } else {
             type.textContent = txt;
         }
-        moveForward = false;
         say("You have selected Tutorial Mode. Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit. I will now begin reading off letters for you to type.");
+        moveForward = false;
         say(txt);
     } else if (m == 2) {
         //Test mode: practice typing words and sentences
