@@ -27,9 +27,11 @@ const numArray = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seven
 
 let checkWordOrPhrase = "";
 
+var moveForward = true;
+
 if (document.activeElement.nodeName = 'TEXTAREA') {
     if (hasClicked == false) {
-        say("It's updating! To learn the keys and locations, type 1 (second from left, second from top) in the first box below. To test your knowledge by typing out words and phrases, hit 2 (third from left, second from top) in the first box below. To go to test mode, where you will type out full sentences with no hints, hit 3 (fourth from left, second from top). For more information on the game, please type 4 (second from top, fifth from left). The mode can be changed at any time by changing the number in the top box, which can be returned to by selecting the up arrow key (located in lower right area of keyboard) while in modes 1, 2, and 3. The up arrow is situated differently for many keyboard models, so ask an adult or friend for help if needed.")
+        say("still updating! To learn the keys and locations, type 1 (second from left, second from top) in the first box below. To test your knowledge by typing out words and phrases, hit 2 (third from left, second from top) in the first box below. To go to test mode, where you will type out full sentences with no hints, hit 3 (fourth from left, second from top). For more information on the game, please type 4 (second from top, fifth from left). The mode can be changed at any time by changing the number in the top box, which can be returned to by selecting the up arrow key (located in lower right area of keyboard) while in modes 1, 2, and 3. The up arrow is situated differently for many keyboard models, so ask an adult or friend for help if needed.")
         hasClicked = true;
     }
 }
@@ -46,6 +48,11 @@ if (mode.focus) {
 
 function say(text) { //taken from gbishop runner example game
     var msg = new SpeechSynthesisUtterance(text);
+    if (moveForward == true) {
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel()
+      }
+    }
     window.speechSynthesis.speak(msg);
 }
 
@@ -93,6 +100,7 @@ mode.addEventListener("keyup", () => {
         heading.textContent = "Tutorial Mode"; //1 = tutorial mode, set heading
         description.textContent = "Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit.";
         say("You have selected Tutorial Mode. Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit.")
+        moveForward = false;
         say("I will now begin reading off letters for you to type.")
         const txt = pickLetter();
         if (txt == " ") {
@@ -107,6 +115,7 @@ mode.addEventListener("keyup", () => {
         heading.textContent = "Practice Mode"; //2 = practice mode, set heading
         description.textContent = "You have selected practice mode. Type the word or phrase spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.";
         say("You have selected practice mode. Type the word or phrase spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.");
+        moveForward = false;
         say("I will now begin reading off words and phrases for you to type.");
         const txt = pickWordOrPhrase();
         say(txt);
@@ -115,6 +124,7 @@ mode.addEventListener("keyup", () => {
         heading.textContent = "Test Mode"; //3 = test mode, set heading
         description.textContent = "You have selected test mode. Type the sentence spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.";
         say("You have selected test mode. Type the sentence spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.");
+        moveForward = false;
         say("I will now begin reading off sentences for you to type.");
         const txt = pickSentence();
         say(txt);
