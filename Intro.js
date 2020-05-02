@@ -101,7 +101,8 @@ mode.addEventListener("keyup", () => {
         } else {
             type.textContent = txt;
         }
-        say("You have selected Tutorial Mode. Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit. I will now begin reading off letters for you to type." + txt);
+        const speech = "You have selected Tutorial Mode. Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit. I will now begin reading off letters for you to type." + txt
+        say(speech);
     } else if (m == 2) {
         //Test mode: practice typing words and sentences
         heading.textContent = "Practice Mode"; //2 = practice mode, set heading
