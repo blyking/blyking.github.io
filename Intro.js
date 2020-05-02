@@ -95,30 +95,24 @@ mode.addEventListener("keyup", () => {
         //Practice mode: learn where keys are on keyboard
         heading.textContent = "Tutorial Mode"; //1 = tutorial mode, set heading
         description.textContent = "Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit.";
-        say("You have selected Tutorial Mode. Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit.")
-        say("I will now begin reading off letters for you to type.")
         const txt = pickLetter();
         if (txt == " ") {
-            say("Space")
             type.textContent = "[Space]"
         } else {
-            say(txt);
             type.textContent = txt;
         }
+        say("You have selected Tutorial Mode. Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit. I will now begin reading off letters for you to type." + txt);
     } else if (m == 2) {
         //Test mode: practice typing words and sentences
         heading.textContent = "Practice Mode"; //2 = practice mode, set heading
         description.textContent = "You have selected practice mode. Type the word or phrase spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.";
-        say("You have selected practice mode. Type the word or phrase spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.");
-        say("I will now begin reading off words and phrases for you to type.");
         const txt = pickWordOrPhrase();
-        say(txt);
         type.textContent = txt;
+        say("You have selected practice mode. Type the word or phrase spoken in lower-case letters. Hit enter (far right, fourth from top) to submit. I will now begin reading off words and phrases for you to type." + txt);
     } else if (m == 3) {
         heading.textContent = "Test Mode"; //3 = test mode, set heading
         description.textContent = "You have selected test mode. Type the sentence spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.";
-        say("You have selected test mode. Type the sentence spoken in lower-case letters. Hit enter (far right, fourth from top) to submit.");
-        say("I will now begin reading off sentences for you to type.");
+        say("You have selected test mode. Type the sentence spoken in lower-case letters. Hit enter (far right, fourth from top) to submit. I will now begin reading off sentences for you to type.");
         const txt = pickSentence();
         say(txt);
         type.textContent = txt;
