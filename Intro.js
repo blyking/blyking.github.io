@@ -12,8 +12,6 @@ const test = document.querySelector("#test");
 
 var hasClicked = false;
 
-var moveForward = true;
-
 const TopRowKeyboard = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"]
 
 const MiddleRowKeyboard = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
@@ -48,10 +46,8 @@ if (mode.focus) {
 
 function say(text) { //taken from gbishop runner example game
     var msg = new SpeechSynthesisUtterance(text);
-    if (moveForward == true) {
-        if (window.speechSynthesis.speaking) {
-            window.speechSynthesis.cancel();
-        }
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
     }
     window.speechSynthesis.speak(msg);
 }
@@ -106,7 +102,6 @@ mode.addEventListener("keyup", () => {
             type.textContent = txt;
         }
         say("You have selected Tutorial Mode. Type the letter spoken in lower-case. Hit enter (far right, fourth from top) to submit. I will now begin reading off letters for you to type.");
-        moveForward = false;
         say(txt);
     } else if (m == 2) {
         //Test mode: practice typing words and sentences
