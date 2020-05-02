@@ -369,7 +369,7 @@ input.addEventListener("keyup", () => {
         say("You have returned to the mode selection text box. Please type 1, 2, 3, or 4.");
     }
     if (event.key !== "Enter" && event.key !== "ArrowUp") {
-        moveForward = true;
+        moveForward = false;
         if (answer[answer.length - 1] === " ") {
             say("Space");
         } else {
