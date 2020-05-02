@@ -41,7 +41,7 @@ document.getElementById(mode.id).select();
 
 if (mode.focus) {
     if (hasClicked == false) {
-        say("To learn the keys and locations, type 1 (second from left, second from top) in the first box below. To test your knowledge by typing out words and phrases, hit 2 (third from left, second from top) in the first box below. To go to test mode, where you will type out full sentences with no hints, hit 3 (fourth from left, second from top). For more information on the game, please type 4 (second from top, fifth from left). The mode can be changed at any time by changing the number in the top box, which can be returned to by selecting the up arrow key (located in lower right area of keyboard) while in modes 1, 2, and 3. The up arrow is situated differently for many keyboard models, so ask an adult or friend for help if needed.")
+        say("Yay! To learn the keys and locations, type 1 (second from left, second from top) in the first box below. To test your knowledge by typing out words and phrases, hit 2 (third from left, second from top) in the first box below. To go to test mode, where you will type out full sentences with no hints, hit 3 (fourth from left, second from top). For more information on the game, please type 4 (second from top, fifth from left). The mode can be changed at any time by changing the number in the top box, which can be returned to by selecting the up arrow key (located in lower right area of keyboard) while in modes 1, 2, and 3. The up arrow is situated differently for many keyboard models, so ask an adult or friend for help if needed.")
         hasClicked = true;
     }
 }
@@ -104,8 +104,8 @@ mode.addEventListener("keyup", () => {
         say("I will now begin reading off letters for you to type.")
         const txt = pickLetter();
         if (txt == " ") {
-            say("Space")
-            type.textContent = "[Space]"
+            say("Space");
+            type.textContent = "[Space]";
         } else {
             say(txt);
             type.textContent = txt;
@@ -132,9 +132,9 @@ mode.addEventListener("keyup", () => {
     } else if (m == 4) {
         say("Welcome to Tarheel Typing! This game is designed to help you learn the numerical and alphabetical key locations on your keyboard. Please start with the tutorial mode (mode 1) until you are completely comfortable with the locations of the keys. After that, we recommend practicing on practice mode (mode 2) before progressing to the test mode (mode 3). Our program will read out the last letter typed to help you know what keys you are pressing, and when you hit backspace, the new last letter of your answer will be read out loud. For further instructions and information, please refer to the README.")
     } else {
-        heading.textContent = "Invalid mode! Please type 1 or 2."; //can only type 1 or 2, set heading
+        heading.textContent = "Invalid mode! Please type 1, 2, 3, or 4."; //can only type 1 or 2, set heading
         description.textContent = "Game will not begin until a valid mode is selected."
-        say("Game will not begin until a valid mode is selected.")
+        say("Game will not begin until a valid mode is selected. Please type 1, 2, 3, or 4.")
     }
 });
 
