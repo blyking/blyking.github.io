@@ -46,9 +46,6 @@ if (mode.focus) {
 
 function say(text) { //taken from gbishop runner example game
     var msg = new SpeechSynthesisUtterance(text);
-    if (window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
-    }
     window.speechSynthesis.speak(msg);
 }
 
