@@ -50,12 +50,12 @@ if (mode.focus) {
 
 function say(text) { //taken from gbishop runner example game
     var msg = new SpeechSynthesisUtterance(text);
-    #if (firstInst == true) {
-        #if (window.speechSynthesis.speaking) {
-            #window.speechSynthesis.cancel();
-            #firstInst = false;
-        #}
-    #}
+    //if (firstInst == true) {
+        //if (window.speechSynthesis.speaking) {
+            //window.speechSynthesis.cancel();
+            //firstInst = false;
+        //}
+    //}
     window.speechSynthesis.speak(msg);
 }
 
