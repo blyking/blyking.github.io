@@ -236,7 +236,6 @@ function IndexOfSingleError(type, answer) {
 
 function findSpaceIndexes(string) {
     let phraseSpaceIndexes = [];
-    test.textContent = "The function is being reached";
     let j = 0;
     for (i = 0; i <= string.length-1; i++) {                                //fills out phraseSpaceIndexes array 1 by 1 with indexes of where spaces are located.
         if(string[i] == " "){
@@ -267,7 +266,6 @@ function findLetterIndex(phraseSpaceIndexes, wordIndex, index) {
         letterIndex = index;
     } else {
         letterIndex = index - (phraseSpaceIndexes[wordIndex-1] + 1);    //phraseSpaceIndexes[wordIndex-1] + 1 gets the index of the beginning of the word that was incorrect and is 
-        test.textContent = index;
     }
     return letterIndex;
 }
