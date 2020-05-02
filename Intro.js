@@ -77,7 +77,7 @@ function pickWordOrPhrase() { //Text generator for mode 2
 }
 
 function pickSentence() { //Text generator for mode 3
-    var sentences = ["The quick brown fox jumps over the lazy dog", "Would you like to come with me and study at the library", "My dad is tall but my uncle is taller", "I want to study biology when I go to college", "I like to play soccer and football", "Math is my favorite school subject", "Which book should I read tonight", "Can you play my favorite song on the speaker please", "How many push ups can you do", "My mom makes the best macaroni and cheese", "My dog is very fluffy", "The cat is in the tall tree", "I like to run and jump", "I like to play with my ball", "This is my pet fish", "We run in the sun", "The big red hen is fat", "I can dig in the mud", "My pet is at the vet"]
+    var sentences = ["The quick brown fox jumps over the lazy dog", "Would you like to come with me and study at the library", "My dad is tall but my uncle is taller", "I want to study biology when I go to college", "I like to play soccer and football", "Math is my favorite school subject", "Which book should I read tonight", "Can you play my favorite song on the speaker please", "How many push ups can you do", "My mom makes the best macaroni and cheese", "My dog is very fluffy", "The cat is in the tall tree", "I like to run and jump", "I like to play with my ball", "This is my pet fish", "We run in the sun", "The big red hen is fat", "I can dig in the mud", "My pet is at the vet"];
     var index = Math.floor(Math.random() * (sentences.length - 1))
     return sentences[index].toLowerCase()
 }
