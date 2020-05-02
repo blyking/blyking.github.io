@@ -59,7 +59,11 @@ function say(text) { //taken from gbishop runner example game
 function pickLetter() { //Text generator for mode 1
     var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789'
     const index = Math.floor(Math.random() * (alphabet.length-1))
-    return alphabet[index].toLowerCase()
+    if (index == 26) {
+        return "[Space]";
+    } else { 
+        return alphabet[index].toLowerCase();
+    }
 }
 
 function testCorrect(answer, key) {
@@ -103,7 +107,7 @@ mode.addEventListener("keyup", () => {
         moveForward = false;
         say("I will now begin reading off letters for you to type.")
         const txt = pickLetter();
-        if (txt == " ") {
+        if (txt == "[Space]") {
             say("Space");
             type.textContent = "[Space]";
         } else {
@@ -130,6 +134,7 @@ mode.addEventListener("keyup", () => {
         say(txt);
         type.textContent = txt;
     } else if (m == 4) {
+        moveForward = true;
         say("Welcome to Tarheel Typing! This game is designed to help you learn the numerical and alphabetical key locations on your keyboard. Please start with the tutorial mode (mode 1) until you are completely comfortable with the locations of the keys. After that, we recommend practicing on practice mode (mode 2) before progressing to the test mode (mode 3). Our program will read out the last letter typed to help you know what keys you are pressing, and when you hit backspace, the new last letter of your answer will be read out loud. For further instructions and information, please refer to the README.")
     } else {
         heading.textContent = "Invalid mode! Please type 1, 2, 3, or 4."; //can only type 1 or 2, set heading
@@ -351,6 +356,7 @@ function CheckMode3(type, answer) {
                     say(type[i]);
                 }
             }
+            say("I will now spell out your new answer.");
         }
         return false;
     }
@@ -366,15 +372,24 @@ input.addEventListener("keyup", () => {
     if (event.key == "ArrowUp") {
         document.getElementById(mode.id).focus();
         document.getElementById(mode.id).select();
+        input.value = "";
+        type.textContent = "";
+        moveForward = true;
+        heading.textContent = "Please select a valid mode.";
+        description.textContent = "You will return back to the answer textbox once you have done so.";
         say("You have returned to the mode selection text box. Please type 1, 2, 3, or 4.");
     }
     if (event.key !== "Enter" && event.key !== "ArrowUp") {
         moveForward = false;
-        if (answer[answer.length - 1] === " ") {
+        if (event.key === " ") {
             say("Space");
         } else {
-            say(answer[answer.length - 1]);
+            say(event.key);
         }
+    }
+
+    if (event.key === "Backspace") {
+        say(answer[answer.length - 1]);
     }
 
     if (m == 1 && answer.length > 0) {
