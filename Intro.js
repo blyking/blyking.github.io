@@ -430,3 +430,7 @@ input.addEventListener("keyup", () => {
         }
     }
 })
+
+window.addEventListener("beforeunload", function() {
+    this.window.speechSynthesis.cancel();
+}, false);
