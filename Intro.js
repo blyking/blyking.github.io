@@ -409,7 +409,7 @@ input.addEventListener("keyup", () => {
             moveForward = false;
             const correct = CheckMode2(k, answer);
             if (correct == true) {
-                say("Correct! I will now reset the textbox and read out a new letter.")
+                say("Correct! I will now reset the textbox and read out a new word or phrase.")
                 input.value = "";
                 const txt = pickWordOrPhrase();
                 type.textContent = txt;
@@ -421,7 +421,7 @@ input.addEventListener("keyup", () => {
             moveForward = false;
             const correct = CheckMode3(k, answer);
             if (correct == true) {
-                say("Correct! I will now reset the textbox and read out a new letter.")
+                say("Correct! I will now reset the textbox and read out a new sentence.")
                 input.value = "";
                 const txt = pickSentence();
                 type.textContent = txt;
