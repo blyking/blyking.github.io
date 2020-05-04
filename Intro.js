@@ -389,7 +389,11 @@ input.addEventListener("keyup", () => {
     }
 
     if (event.key === "Backspace") {
-        say(answer[answer.length - 1]);
+        if (answer[answer.length-1] == " ") {
+            say("Space");
+        } else {
+            say(answer[answer.length - 1]);
+        }
     }
 
     if (m == 1 && answer.length > 0) {
@@ -409,7 +413,7 @@ input.addEventListener("keyup", () => {
             moveForward = false;
             const correct = CheckMode2(k, answer);
             if (correct == true) {
-                say("Correct! I will now reset the textbox and read out a new word or phrase.")
+                say("Correct! I will now reset the textbox and read out a new letter.")
                 input.value = "";
                 const txt = pickWordOrPhrase();
                 type.textContent = txt;
@@ -421,7 +425,7 @@ input.addEventListener("keyup", () => {
             moveForward = false;
             const correct = CheckMode3(k, answer);
             if (correct == true) {
-                say("Correct! I will now reset the textbox and read out a new sentence.")
+                say("Correct! I will now reset the textbox and read out a new letter.")
                 input.value = "";
                 const txt = pickSentence();
                 type.textContent = txt;
