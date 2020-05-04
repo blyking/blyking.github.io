@@ -304,7 +304,7 @@ function CheckMode2(type, answer){
                 let letterIndex = findLetterIndex(phraseSpaceIndexes, wordIndex, index);                                                                //subtracted from the index of the mistake in order to get the correct index in the numArray to be read out for the letter.
                 say("on the" + numArray[wordIndex] + "word of the phrase, " + numArray[letterIndex] + "letter of the word.");
             }
-            say("Please hit backspace and retype the incorrect letter.")
+            say("Please hit backspace and try again.")
         } else {
             say("You made");
             say(diff);
@@ -342,9 +342,17 @@ function CheckMode3(type, answer) {
                 say(answer[index])
             }
             say("instead of")
-            say(type[index]);
-            say(`on the${numArray[wordIndex]}word of the phrase, ${numArray[letterIndex]}of the word.`)
-
+            if (type[index] == " ") {
+                say("Space")
+            } else {
+                say(type[index]);
+            }
+            if (type[index] == " ") {
+                say("between two words in the phrase.");
+            } else {
+                say(`on the${numArray[wordIndex]}word of the phrase, ${numArray[letterIndex]}of the word.`)
+            }
+            say("Please hit backspace and try again.");
         } else {
             say("You made");
             say(diff);
