@@ -301,8 +301,12 @@ function CheckMode2(type, answer){
             }else if(checkWordOrPhrase == "phrase"){
                 let phraseSpaceIndexes = findSpaceIndexes(type);
                 let wordIndex = findWordIndex(phraseSpaceIndexes, index);  
-                let letterIndex = findLetterIndex(phraseSpaceIndexes, wordIndex, index);                                                                //subtracted from the index of the mistake in order to get the correct index in the numArray to be read out for the letter.
-                say("on the" + numArray[wordIndex] + "word of the phrase, " + numArray[letterIndex] + "letter of the word.");
+                let letterIndex = findLetterIndex(phraseSpaceIndexes, wordIndex, index);
+                if (type[index] == " ") {
+                    say("between two words in the phrase.");
+                } else {                                                               //subtracted from the index of the mistake in order to get the correct index in the numArray to be read out for the letter.
+                    say("on the" + numArray[wordIndex] + "word of the phrase, " + numArray[letterIndex] + "letter of the word.");
+                }
             }
             say("Please hit backspace and try again.")
         } else {
