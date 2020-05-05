@@ -1,3 +1,5 @@
+#added comment to see if this will push to website
+
 const mode = document.querySelector("#mode_selection"); //from first textbox
 
 const heading = document.querySelector("#heading"); //will be title of second textbox
