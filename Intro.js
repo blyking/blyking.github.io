@@ -439,7 +439,7 @@ input.addEventListener("keyup", () => {
             const correct = CheckMode2(k, answer);
             if (correct == true) {
                 if (wordinessM2 == true) {
-                    say("Correct! I will now reset the textbox and reed out a new letter.")
+                    say("Correct! I will now reset the textbox and reed out a new word or phrase.")
                     wordinessM2 = false;
                 } else {
                     say("Correct!");
@@ -456,7 +456,7 @@ input.addEventListener("keyup", () => {
             const correct = CheckMode3(k, answer);
             if (correct == true) {
                 if (wordinessM3 == true) {
-                    say("Correct! I will now reset the textbox and reed out a new letter.")
+                    say("Correct! I will now reset the textbox and reed out a new sentence.")
                     wordinessM3 = false;
                 } else {
                     say("Correct!");
