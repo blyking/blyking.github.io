@@ -88,7 +88,7 @@ function pickWordOrPhrase() { //Text generator for mode 2
 }
 
 function pickSentence() { //Text generator for mode 3
-    var sentences = ["The quick brown fox jumps over the lazy dog", "Would you like to come with me and study at the library", "My dad is tall but my uncle is taller", "I want to study biology when I go to college", "I like to play soccer and football", "Math is my favorite school subject", "Which book should I read tonight", "Can you play my favorite song on the speaker please", "How many push ups can you do", "My mom makes the best macaroni and cheese", "My dog is very fluffy", "The cat is in the tall tree", "I like to run and jump", "I like to play with my ball", "This is my pet fish", "We run in the sun", "The big red hen is fat", "I can dig in the mud", "My pet is at the vet"]
+    var sentences = ["The quick brown fox jumps over the lazy dog", "Would you like to come with me and study at the library", "My dad is tall but my uncle is taller", "I want to study biology when I go to college", "I like to play soccer and football", "Math is my favorite school subject", "Which book should I reed tonight", "Can you play my favorite song on the speaker please", "How many push ups can you do", "My mom makes the best macaroni and cheese", "My dog is very fluffy", "The cat is in the tall tree", "I like to run and jump", "I like to play with my ball", "This is my pet fish", "We run in the sun", "The big red hen is fat", "I can dig in the mud", "My pet is at the vet"]
     var index = Math.floor(Math.random() * (sentences.length - 1))
     return sentences[index].toLowerCase()
 }
@@ -135,7 +135,7 @@ mode.addEventListener("keyup", () => {
         type.textContent = txt;
     } else if (m == 4) {
         moveForward = true;
-        say("Welcome to Tarheel Typing! This game is designed to help you learn the numerical and alphabetical key locations on your keyboard. Please start with the tutorial mode (mode 1) until you are completely comfortable with the locations of the keys. After that, we recommend practicing on practice mode (mode 2) before progressing to the test mode (mode 3). Our program will read out the last letter typed to help you know what keys you are pressing, and when you hit backspace, the new last letter of your answer will be read out loud. For further instructions and information, please refer to the README and report. Now, press backspace (far right, second from top) and type 1, 2, or 3 to proceed.")
+        say("Welcome to Tarheel Typing! This game is designed to help you learn the numerical and alphabetical key locations on your keyboard. Please start with the tutorial mode (mode 1) until you are completely comfortable with the locations of the keys. After that, we recommend practicing on practice mode (mode 2) before progressing to the test mode (mode 3). Our program will reed out the last letter typed to help you know what keys you are pressing, and when you hit backspace, the new last letter of your answer will be read out loud. For further instructions and information, please refer to the README and report. Now, press backspace (far right, second from top) and type 1, 2, or 3 to proceed.")
     } else {
         heading.textContent = "Invalid mode! Please type 1, 2, 3, or 4."; //can only type 1 or 2, set heading
         description.textContent = "Game will not begin until a valid mode is selected."
@@ -413,7 +413,7 @@ input.addEventListener("keyup", () => {
             moveForward = false;
             const Correct = CheckMode1(k, answer);
             if (Correct == true) {
-                say("Correct! I will now reset the textbox and read out a new letter.");
+                say("Correct! I will now reset the textbox and reed out a new letter.");
                 input.value = "";
                 const txt = pickLetter();
                 type.textContent = txt;
@@ -425,7 +425,7 @@ input.addEventListener("keyup", () => {
             moveForward = false;
             const correct = CheckMode2(k, answer);
             if (correct == true) {
-                say("Correct! I will now reset the textbox and read out a new letter.")
+                say("Correct! I will now reset the textbox and reed out a new word or phrase.")
                 input.value = "";
                 const txt = pickWordOrPhrase();
                 type.textContent = txt;
@@ -437,7 +437,7 @@ input.addEventListener("keyup", () => {
             moveForward = false;
             const correct = CheckMode3(k, answer);
             if (correct == true) {
-                say("Correct! I will now reset the textbox and read out a new letter.")
+                say("Correct! I will now reset the textbox and reed out a new sentence.")
                 input.value = "";
                 const txt = pickSentence();
                 type.textContent = txt;
